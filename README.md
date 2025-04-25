@@ -1,3 +1,3 @@
-# 🔗 Liens de Obeone
+# 🔗 Obeone - Links Page
 
-Petite page HTML simple en dark mode avec mes liens publics. Déployée automatiquement via GitHub Pages.
+A minimal dark-mode landing page to share useful links about me. Automatically deployed using GitHub Pages.
