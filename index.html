@@ -1,218 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Grégoire Compagnon - obeone</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    >
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* Custom styles for the aurora background effect and glassmorphism */
         body {
-            background-color: #121212;
-            color: #f0f0f0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #0D1117; /* A dark, slightly blueish background */
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
-        .card {
-            background-color: #1e1e1e;
-            border: none;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.15);
+
+        .aurora-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
         }
-        .card:hover {
-            background-color: #2a2a2a;
-        }
-        /* Card Body Flex Layout */
-        .card-body {
-            display: flex;
-            align-items: center; /* Vertically center icon and text block */
-            padding: 1.25rem;
-        }
-        /* Icon Container */
-        .card-icon {
-            font-size: 2.5em; /* Larger icon */
-            color: #6eb6ff;
-            margin-right: 1.25rem; /* Space between icon and text */
-            flex-shrink: 0; /* Prevent icon from shrinking */
-            width: 1.5em; /* Fixed width for alignment */
-            text-align: center;
-        }
-        /* Text Container */
-        .card-text-content {
-            flex-grow: 1; /* Take remaining space */
-            display: flex;
-            flex-direction: column; /* Stack title and link vertically */
-        }
-        .card-title {
-            color: #ffffff;
-            font-weight: 500;
-            font-size: 1.1rem; /* Slightly larger title */
-            margin-bottom: 0.15rem; /* Small space between title and link */
-        }
-        .card-link { /* Changed from .card a to target specifically the link */
-            color: #8fadc8; /* Softer color for the link URL */
-            text-decoration: none;
-            font-size: 0.9rem; /* Smaller font size for link */
-            word-break: break-all; /* Prevent long URLs from overflowing */
-        }
-        .card-link:hover {
-            text-decoration: underline;
-            color: #a8c2d8;
-        }
-        .avatar {
-            width: 125px;
-            height: 125px;
-            object-fit: cover;
+
+        .aurora-background::before,
+        .aurora-background::after {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
             border-radius: 50%;
-            border: 3px solid #6eb6ff;
-            margin-bottom: 1.5rem; /* Increased space */
-            box-shadow: 0 3px 10px rgba(110, 182, 255, 0.15);
+            filter: blur(150px);
+            mix-blend-mode: screen;
+            opacity: 0.3;
+            animation: aurora-flow 20s linear infinite;
         }
-        h1.main-title {
-             margin-bottom: 0.75rem; /* Increased space */
-             font-weight: 600;
+
+        .aurora-background::before {
+            background: radial-gradient(circle, #3b82f6, transparent 60%);
+            top: -20%;
+            left: -20%;
         }
-        .nickname {
-            color: #999;
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem; /* Increased space */
+
+        .aurora-background::after {
+            background: radial-gradient(circle, #8b5cf6, transparent 60%);
+            bottom: -20%;
+            right: -20%;
+            animation-delay: -10s;
         }
-        .bio {
-            color: #bbb;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 2.5rem; /* Increased space */
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .bio a {
-            color: #8ecaff;
-            text-decoration: none;
-            border-bottom: 1px dotted #8ecaff;
-        }
-         .bio a:hover {
-            color: #b3d9ff;
-            border-bottom-style: solid;
-        }
-        .description-text {
-            margin-bottom: .5rem !important; /* Increased space before cards */
-        }
-        @media (min-width: 1024px) {
-            .card {
-                max-width: 500px;
-                margin-left: auto;
-                margin-right: auto;
+
+        @keyframes aurora-flow {
+            0%, 100% {
+                transform: translateX(20px) translateY(40px) rotate(0deg);
+            }
+            50% {
+                transform: translateX(-20px) translateY(-40px) rotate(180deg);
             }
         }
+
+        /* Glassmorphism card style */
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Avatar glow effect */
+        .avatar-glow {
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+        }
     </style>
+    
+    <!-- Plausible Analytics Script -->
     <script defer data-domain="obeone.org" src="https://plausible.obeone.cloud/js/script.js"></script>
 </head>
-<body>
+<body class="text-gray-200">
 
-    <div class="container py-5 text-center">
+    <div class="aurora-background"></div>
 
-        <img src="obeone.webp" srcset="obeone.webp 1x, obeone@2x.webp 2x, obeone@3x.webp 3x"
-            alt="Profile picture of Grégoire Compagnon"
-            class="avatar"
-            width="125" height="125">
+    <main class="container mx-auto px-4 py-8 sm:py-12 flex flex-col items-center justify-center min-h-screen">
+        
+        <div class="text-center w-full max-w-2xl">
+            <!-- Profile Picture -->
+            <img src="https://github.com/obeone.png" 
+                 alt="Profile picture of Grégoire Compagnon"
+                 class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-gray-700 avatar-glow"
+                 onerror="this.onerror=null;this.src='https://placehold.co/128x128/0D1117/FFFFFF?text=GC';">
 
-        <h1 class="main-title">Grégoire Compagnon</h1>
-        <div class="nickname">obeone</div>
+            <!-- Name and Nickname -->
+            <h1 class="text-4xl font-bold text-white">Grégoire Compagnon</h1>
+            <p class="text-xl text-gray-400 mt-1">obeone</p>
 
-        <div class="bio">
-            Kind of a weird Swiss Army knife in tech: coding, sysadmin, networking, Kubernetes, AI, and beyond.<br><br>
-            CTO at <a href="https://www.snapp.fr" target="_blank" rel="noopener noreferrer">Snapp’</a>.<br>Volunteer and activist at <a href="https://www.aides.org/" target="_blank" rel="noopener noreferrer">AIDES</a>.
+            <!-- Bio -->
+            <p class="mt-6 text-gray-300 max-w-md mx-auto leading-relaxed">
+                Kind of a weird Swiss Army knife in tech: coding, sysadmin, networking, Kubernetes, AI, and beyond.<br><br>
+                CTO at <a href="https://www.snapp.fr" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 font-semibold">Snapp’</a>.
+                Volunteer and activist at <a href="https://www.aides.org/" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:text-pink-300 font-semibold">AIDES</a>.
+            </p>
         </div>
 
-        <p class="text-secondary description-text">A few useful links to reach me or follow what I do.</p>
-
-        <div class="row justify-content-center">
-            <div class="col-md-7 col-lg-6">
-
-                <a href="https://fncontact.com/obeone" target="_blank" rel="noopener noreferrer" class="card mb-3 shadow-sm rounded-3 text-decoration-none text-reset d-block">
-                    <div class="card-body">
-                        <div class="card-icon">
-                            <i class="fab fa-envelope"></i>
-                        </div>
-                        <div class="card-text-content">
-                            <h5 class="card-title">Contact me!</h5>
-                            <span class="card-link">Secured contact form</span>
-                        </div>
+        <!-- Links Section -->
+        <div class="mt-12 w-full max-w-md">
+            <div class="space-y-4">
+                
+                <!-- Contact Link -->
+                <a href="https://fncontact.com/obeone" target="_blank" rel="noopener noreferrer" class="glass-card flex items-center p-4 rounded-lg text-white no-underline">
+                    <div class="w-10 text-center text-xl text-blue-400"><i class="fas fa-envelope"></i></div>
+                    <div class="ml-4">
+                        <h5 class="font-semibold">Contact me!</h5>
+                        <span class="text-sm text-gray-400">Secured contact form</span>
                     </div>
                 </a>
 
-                <a href="https://github.com/obeone" target="_blank" rel="noopener noreferrer" class="card mb-3 shadow-sm rounded-3 text-decoration-none text-reset d-block">
-                    <div class="card-body">
-                        <div class="card-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <div class="card-text-content">
-                            <h5 class="card-title">GitHub</h5>
-                            <span class="card-link">github.com/obeone</span>
-                        </div>
+                <!-- GitHub Link -->
+                <a href="https://github.com/obeone" target="_blank" rel="noopener noreferrer" class="glass-card flex items-center p-4 rounded-lg text-white no-underline">
+                    <div class="w-10 text-center text-xl text-gray-300"><i class="fab fa-github"></i></div>
+                    <div class="ml-4">
+                        <h5 class="font-semibold">GitHub</h5>
+                        <span class="text-sm text-gray-400">github.com/obeone</span>
                     </div>
                 </a>
 
-                <a href="https://pypi.org/user/obeone/" target="_blank" rel="noopener noreferrer" class="card mb-3 shadow-sm rounded-3 text-decoration-none text-reset d-block">
-                    <div class="card-body">
-                        <div class="card-icon">
-                            <i class="fab fa-python"></i>
-                        </div>
-                        <div class="card-text-content">
-                            <h5 class="card-title">PyPI Packages</h5>
-                            <span class="card-link">pypi.org/user/obeone</span>
-                        </div>
+                <!-- PyPI Link -->
+                <a href="https://pypi.org/user/obeone/" target="_blank" rel="noopener noreferrer" class="glass-card flex items-center p-4 rounded-lg text-white no-underline">
+                    <div class="w-10 text-center text-xl text-yellow-400"><i class="fab fa-python"></i></div>
+                    <div class="ml-4">
+                        <h5 class="font-semibold">PyPI Packages</h5>
+                        <span class="text-sm text-gray-400">pypi.org/user/obeone</span>
                     </div>
                 </a>
 
-                <a href="https://hub.docker.com/u/obeoneorg" target="_blank" rel="noopener noreferrer" class="card mb-3 shadow-sm rounded-3 text-decoration-none text-reset d-block">
-                    <div class="card-body">
-                        <div class="card-icon">
-                            <i class="fab fa-docker"></i>
-                        </div>
-                        <div class="card-text-content">
-                            <h5 class="card-title">Docker Hub</h5>
-                            <span class="card-link">hub.docker.com/u/obeoneorg</span>
-                        </div>
+                <!-- Docker Hub Link -->
+                <a href="https://hub.docker.com/u/obeoneorg" target="_blank" rel="noopener noreferrer" class="glass-card flex items-center p-4 rounded-lg text-white no-underline">
+                    <div class="w-10 text-center text-xl text-sky-400"><i class="fab fa-docker"></i></div>
+                    <div class="ml-4">
+                        <h5 class="font-semibold">Docker Hub</h5>
+                        <span class="text-sm text-gray-400">hub.docker.com/u/obeoneorg</span>
                     </div>
                 </a>
 
-                <a href="https://www.linkedin.com/in/obeonebx/" target="_blank" rel="noopener noreferrer" class="card mb-3 shadow-sm rounded-3 text-decoration-none text-reset d-block">
-                    <div class="card-body">
-                        <div class="card-icon">
-                            <i class="fab fa-linkedin"></i>
-                        </div>
-                        <div class="card-text-content">
-                            <h5 class="card-title">LinkedIn</h5>
-                            <span class="card-link">linkedin.com/in/obeonebx</span>
-                        </div>
+                <!-- LinkedIn Link -->
+                <a href="https://www.linkedin.com/in/obeonebx/" target="_blank" rel="noopener noreferrer" class="glass-card flex items-center p-4 rounded-lg text-white no-underline">
+                    <div class="w-10 text-center text-xl text-blue-500"><i class="fab fa-linkedin"></i></div>
+                    <div class="ml-4">
+                        <h5 class="font-semibold">LinkedIn</h5>
+                        <span class="text-sm text-gray-400">linkedin.com/in/obeonebx</span>
                     </div>
                 </a>
 
-                <a href="https://obeone.smmall.cloud/inbox/inbox" target="_blank" rel="noopener noreferrer" class="card mb-3 shadow-sm rounded-3 text-decoration-none text-reset d-block">
-                    <div class="card-body">
-                        <div class="card-icon">
-                            <i class="fas fa-inbox"></i>
-                        </div>
-                        <div class="card-text-content">
-                            <h5 class="card-title">Send me files</h5>
-                            <span class="card-link">obeone.smmall.cloud/inbox/inbox</span>
-                        </div>
+                <!-- Send Files Link -->
+                <a href="https://obeone.smmall.cloud/inbox/inbox" target="_blank" rel="noopener noreferrer" class="glass-card flex items-center p-4 rounded-lg text-white no-underline">
+                    <div class="w-10 text-center text-xl text-purple-400"><i class="fas fa-inbox"></i></div>
+                    <div class="ml-4">
+                        <h5 class="font-semibold">Send me files</h5>
+                        <span class="text-sm text-gray-400">obeone.smmall.cloud/inbox/inbox</span>
                     </div>
                 </a>
 
             </div>
         </div>
-    </div>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>&copy; 2025 Grégoire Compagnon. Made with <span class="text-red-500">&hearts;</span> and code.</p>
+        </footer>
+
+    </main>
 
 </body>
 </html>
