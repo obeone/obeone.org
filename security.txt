@@ -1,0 +1,5 @@
+Contact: mailto:obeone@obeone.org
+Encryption: https://obeone.org/pgp.txt
+Preferred-Languages: en, fr
+Policy: https://obeone.org/security
+Canonical: https://obeone.org/.well-known/security.txt
