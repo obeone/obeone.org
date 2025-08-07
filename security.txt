@@ -2,5 +2,4 @@ Contact: mailto:obeone@obeone.org
 Encryption: https://obeone.org/pgp.txt
 Preferred-Languages: en, fr
 Policy: https://obeone.org/security
-Expires: 2026-08-01T00:00:00Z
 Canonical: https://obeone.org/.well-known/security.txt
