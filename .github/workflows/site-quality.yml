@@ -1,0 +1,33 @@
+name: site-quality
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
+  push:
+    branches: [ main, master ]
+env:
+  SITE_URL: https://obeone.org
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - name: Install CLI tools
+        run: npm i -g @lhci/cli pa11y-ci
+      - name: Lighthouse CI
+        run: |
+          lhci collect --url "$SITE_URL" --output-path=./lhci-report.json
+          lhci assert --assert.preset=lighthouse:recommended --budgets.preset=perfsample || true
+        continue-on-error: true
+      - name: Pa11y (accessibility)
+        run: pa11y-ci "$SITE_URL"
+        continue-on-error: true
+      - name: Broken links (lychee)
+        uses: lycheeverse/lychee-action@v1.11.1
+        with: { args: --verbose --no-progress --max-redirects 5 "$SITE_URL" }
+        continue-on-error: true
+      - name: Upload reports
+        uses: actions/upload-artifact@v4
+        with: { name: site-quality-reports, path: lhci-report.json }

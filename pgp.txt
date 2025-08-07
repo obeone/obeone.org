@@ -1,0 +1,4 @@
+# Replace with your ASCII-armored PGP public key
+# -----BEGIN PGP PUBLIC KEY BLOCK-----
+# ...
+# -----END PGP PUBLIC KEY BLOCK-----
